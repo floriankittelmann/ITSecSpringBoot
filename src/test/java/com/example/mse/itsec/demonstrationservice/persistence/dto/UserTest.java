@@ -1,4 +1,4 @@
-package com.example.mse.itsec.demonstrationservice.dto;
+package com.example.mse.itsec.demonstrationservice.persistence.dto;
 
 import org.junit.jupiter.api.Test;
 
