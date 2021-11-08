@@ -8,9 +8,9 @@ class UserTest {
 
     @Test
     public void createUser() {
-        User user = new User(1l,"user","password");
+        User user = new User(1L,"user","password");
 
-        assertThat(user.getId()).isEqualTo(1l);
+        assertThat(user.getId()).isEqualTo(1L);
         assertThat(user.getUsername()).isEqualTo("user");
         assertThat(user.getPassword()).isEqualTo("password");
     }

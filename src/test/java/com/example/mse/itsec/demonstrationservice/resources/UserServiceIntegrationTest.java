@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class UserServiceIntegrationtest {
+class UserServiceIntegrationTest {
 
     @Autowired
     private UserService userService;
@@ -17,7 +16,7 @@ class UserServiceIntegrationtest {
 
     @Test
     void getUser() {
-        Long userId = 1l;
+        Long userId = 1L;
         User user = userService.getUser(userId);
 
         assertThat(user.getUsername()).isEqualTo("user");
