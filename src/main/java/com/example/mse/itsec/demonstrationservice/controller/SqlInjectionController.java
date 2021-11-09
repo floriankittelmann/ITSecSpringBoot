@@ -25,7 +25,7 @@ public class SqlInjectionController {
         this.entityManager = entityManager;
     }
 
-    @GetMapping("/sqli/protected1")
+    @GetMapping("/sqli/derived_queries")
     public String login_protected1(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
                            Model model) {
         boolean credentialsValid = userService.verifyCredentials(new User(null, name, password));
@@ -37,7 +37,7 @@ public class SqlInjectionController {
 
         return "failed";
     }
-    @GetMapping("/sqli/protected2")
+    @GetMapping("/sqli/named_queries")
     public String login_protected2(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
                                   Model model) {
         boolean credentialsValid = userService.verifyCredentialsNative(new User(null, name, password));
@@ -49,10 +49,14 @@ public class SqlInjectionController {
 
         return "failed";
     }
-    @GetMapping("/sqli/vulnerable1")
+
+    @GetMapping("/sqli/raw_vulnerable")
     public String login_vulnerable1(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
                            Model model) {
-        List results = entityManager.createNativeQuery("Select * from USER where username = '" + name + "' and password = '" + password+"'").getResultList();
+
+        // Using string concatenation to create a query -> BAD!
+        String sql = "select * from USER where username = '" + name + "' and password = '" + password+"'";
+        List results = entityManager.createNativeQuery(sql).getResultList();
         boolean credentialsMatch = !results.isEmpty();
 
         if(credentialsMatch) {
@@ -65,12 +69,35 @@ public class SqlInjectionController {
     }
 
 
-    @GetMapping("/sqli/vulnerable2")
+    @GetMapping("/sqli/jpql_vulnerable")
     public String login_vulnerable2(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
                                    Model model) {
 
+        // Using JPQL with string concatenation (unsafe) -> JPA/Hibenate does not help to prevent SQLi in this case.
         String jql = "from User where username = '" + name + "'and password = '" + password+"'";
         TypedQuery<User> q = entityManager.createQuery(jql, User.class);
+        boolean credentialsMatch  =  q.getResultList()
+                .size() > 0;
+
+        if(credentialsMatch) {
+            model.addAttribute("name", name);
+            model.addAttribute("time", ZonedDateTime.now().toString());
+            return "login";
+        }
+        return "failed";
+
+    }
+
+    @GetMapping("/sqli/jpql_protected")
+    public String jql_parametrized(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
+                                    Model model) {
+
+        // Using JPQL with parameterized query (safe) -> JPA/Hibenate does not help to prevent SQLi in this case.
+        String jql = "from User where username = :name and password = :password";
+        TypedQuery<User> q = entityManager.createQuery(jql, User.class)
+                .setParameter("name",name)
+                .setParameter("password",password);
+
         boolean credentialsMatch  =  q.getResultList()
                 .size() > 0;
 

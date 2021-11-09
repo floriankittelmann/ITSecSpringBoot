@@ -12,9 +12,12 @@ import java.util.Optional;
 interface UserRepository extends JpaRepository<User, Long> {
 
     User getByUsername(String username);
+
+    // Using Spring Data Query DSL generates save queries by default
     boolean existsUserByUsernameAndPassword(String username, String password);
 
-    @Query("SELECT u FROM User u WHERE u.username = :name and u.password= :password")
+    // Native queries are as close to SQL we can get in Spring Boot repositories. We are forced to use parametrized queries
+    @Query(value = "SELECT * FROM User u WHERE u.username = :name and u.password= :password", nativeQuery = true)
     Optional<User> findUserByUsernameAndPassword(@Param("name") String userStatus,
                                                  @Param("password") String userName);
 }
