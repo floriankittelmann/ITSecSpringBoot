@@ -2,16 +2,13 @@ package com.example.mse.itsec.demonstrationservice.persistence;
 
 import com.example.mse.itsec.demonstrationservice.persistence.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 
-@Service
 @Repository
 public class UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -24,6 +21,9 @@ public class UserService {
 
     public boolean verifyCredentials(User user) {
         return userRepository.existsUserByUsernameAndPassword(user.getUsername(), user.getPassword());
+    }
+    public boolean verifyCredentialsNative(User user) {
+        return userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
     }
 
     public User getUser(String name) {
