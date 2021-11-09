@@ -23,7 +23,7 @@ public class UserService {
     }
 
     public boolean verifyCredentials(User user) {
-        return userRepository.exists(Example.of(user));
+        return userRepository.existsUserByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 
     public User getUser(String name) {
