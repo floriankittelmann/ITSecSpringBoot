@@ -35,4 +35,19 @@ public class SqlInjectionController {
 
         return "failed";
     }
+
+    @GetMapping("/sqli/vulnerable")
+    public String login_vulnerable(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
+                           Model model) {
+        List results = entityManager.createNativeQuery("Select * from users where username = '" + name + "' and password = '" + password+"'").getResultList();
+        boolean credentialsMatch = !results.isEmpty();
+
+        if(credentialsMatch) {
+            model.addAttribute("name", name);
+            model.addAttribute("time", ZonedDateTime.now().toString());
+            return "login";
+        }
+        return "failed";
+
+    }
 }
