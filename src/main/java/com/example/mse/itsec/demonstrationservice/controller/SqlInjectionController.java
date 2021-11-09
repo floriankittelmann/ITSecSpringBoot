@@ -8,20 +8,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityManager;
+import java.time.ZonedDateTime;
+import java.util.List;
+
 @Controller
 public class SqlInjectionController {
 
     private UserService userService;
+    private EntityManager entityManager;
 
     @Autowired
-    public SqlInjectionController(UserService userService) {
+    public SqlInjectionController(UserService userService, EntityManager entityManager) {
         this.userService = userService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping("/sqli/protected")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        User user = userService.getUser(name);
-        model.addAttribute("name", user.getUsername());
-        return "greeting";
+    public String login_protected(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
+                           Model model) {
+        if(userService.verifyCredentials(new User(null, name, password))) {
+            model.addAttribute("name", name);
+            model.addAttribute("time", ZonedDateTime.now().toString());
+            return "login";
+        }
+
+        return "failed";
     }
 }
