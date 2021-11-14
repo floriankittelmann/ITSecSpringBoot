@@ -1,6 +1,7 @@
 package com.example.mse.itsec.demonstrationservice.controller;
 
 import com.example.mse.itsec.demonstrationservice.persistence.UserService;
+import com.example.mse.itsec.demonstrationservice.persistence.dto.User_;
 import com.example.mse.itsec.demonstrationservice.persistence.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -91,7 +95,6 @@ public class SqlInjectionController {
     @GetMapping("/sqli/jpql_protected")
     public String jql_parametrized(@RequestParam(name="name") String name, @RequestParam(name="password") String password,
                                     Model model) {
-
         // Using JPQL with parameterized query (safe) -> JPA/Hibenate does not help to prevent SQLi in this case.
         String jql = "from User where username = :name and password = :password";
         TypedQuery<User> q = entityManager.createQuery(jql, User.class)
@@ -107,6 +110,28 @@ public class SqlInjectionController {
             return "login";
         }
         return "failed";
+    }
 
+    @GetMapping("/sqli/jpa_criteria_api")
+    public String jpa_criteria_api(@RequestParam(name="name") String name, @RequestParam(name="password") String password, Model model) {
+
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> cq = cb.createQuery(User.class);
+
+        Root<User> root = cq.from(User.class);
+        cq.select(root);
+        cq.where(
+                cb.equal(root.get(User_.username), name),
+                cb.equal(root.get(User_.password), password)
+        );
+        TypedQuery<User> q = entityManager.createQuery(cq);
+        boolean credentialsMatch = q.getResultList().size() > 0;
+
+        if(credentialsMatch) {
+            model.addAttribute("name", name);
+            model.addAttribute("time", ZonedDateTime.now().toString());
+            return "login";
+        }
+        return "failed";
     }
 }
