@@ -5,7 +5,13 @@ This project uses Spring Boot with Spring MVC, Thymeleaf and Spring Data JPA. Th
 
 The as backing database [H2 in memory](https://www.baeldung.com/spring-boot-h2-database) DB is used.
 
-Resources used:
- - Example for [Spring MVC Projects](https://spring.io/guides/gs/serving-web-content/)
- - Introduction to [SpringMVC+Thymeleaf](https://www.baeldung.com/thymeleaf-in-spring-mvc)
- - Introduction to [Spring Data JPA]()
+Resources used XXS protection:
+ 
+ - [Thymeleaf form submission](https://spring.io/guides/gs/handling-form-submission/)
+ - [Validation in Spring Boot](https://www.baeldung.com/spring-boot-bean-validation)
+ - [Hiberanet Bean Validation](http://hibernate.org/validator/)
+ - [Spring Boot Wep App Security](https://docs.spring.io/spring-security/site/docs/5.1.6.RELEASE/reference/html/web-app-security.html)
+ - [Spring Security Security Headers](https://www.baeldung.com/spring-prevent-xss)
+ - [Unsave output in Thymeleaf](https://stackoverflow.com/questions/14876926/how-to-prevent-thymeleaf-from-replacing-special-characters-in-html-attribute-val)
+ - [Spring Security CSRF protection](https://www.baeldung.com/spring-security-csrf)
+ 
