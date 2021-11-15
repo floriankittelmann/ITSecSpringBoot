@@ -29,4 +29,8 @@ public class UserService {
     public User getUser(String name) {
         return  userRepository.getByUsername(name);
     }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }
