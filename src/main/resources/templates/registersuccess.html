@@ -1,0 +1,10 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registered successfully</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:utext="'Congratulations you have registered successfully with the username ' + ${username} + '. You must confirm your registartion by clicking the contirmation link sent to your e-mailaddress:' + ${email} + '!'" />
+</body>
+</html>
