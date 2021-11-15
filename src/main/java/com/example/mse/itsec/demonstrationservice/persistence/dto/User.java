@@ -3,10 +3,7 @@ package com.example.mse.itsec.demonstrationservice.persistence.dto;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -22,7 +19,9 @@ public class User {
     private Long id;
 
     @NotBlank(message = "username must not be blank")
-    @Size(min = 3, max = 100, message = "Username must be between 3 and 20 characters long")
+    @Size(min = 3, max = 100, message = "Username must be between 3 and 20 characters long") // we need some space for XXS POC
+    //@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long")
+    //@Pattern(regexp = "[a-zA-Z0-9]+", message = "May only contain alphanumeric") // Uncomment this for regex filtering based on allowed
     @Column(name = "username")
     private String username;
 

@@ -14,4 +14,9 @@ Resources used XXS protection:
  - [Spring Security Security Headers](https://www.baeldung.com/spring-prevent-xss)
  - [Unsave output in Thymeleaf](https://stackoverflow.com/questions/14876926/how-to-prevent-thymeleaf-from-replacing-special-characters-in-html-attribute-val)
  - [Spring Security CSRF protection](https://www.baeldung.com/spring-security-csrf)
- 
+ - [Tag filtering is hard](https://stackoverflow.com/questions/31308968/xss-filter-to-remove-all-scripts)
+ - [Tag filtering is hard, for a reason](https://cs.stackexchange.com/questions/1031/how-to-prove-that-a-language-is-not-regular)
+ - [Implementing tag filtering nonetheless](https://stackoverflow.com/questions/49373299/how-to-block-or-protect-against-xss-for-spring-mvc-4-applications-without-spring/49386625)
+ - [Example for a custom XSS HTML tag filter](https://github.com/f-loris/spring-boot-xss-sample/blob/master/src/main/java/at/fhooe/sfs/security/XssFilter.java)
+
+Spring Boot does not provide a ready to use facility for filtering HTML tags out of input. The reasons are that it is highly dependent on the application, and it is very hard and almost always incomplete. Other XSS counter measures are prefered.
