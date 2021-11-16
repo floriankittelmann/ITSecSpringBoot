@@ -18,5 +18,6 @@ Resources used XXS protection:
  - [Tag filtering is hard, for a reason](https://cs.stackexchange.com/questions/1031/how-to-prove-that-a-language-is-not-regular)
  - [Implementing tag filtering nonetheless](https://stackoverflow.com/questions/49373299/how-to-block-or-protect-against-xss-for-spring-mvc-4-applications-without-spring/49386625)
  - [Example for a custom XSS HTML tag filter](https://github.com/f-loris/spring-boot-xss-sample/blob/master/src/main/java/at/fhooe/sfs/security/XssFilter.java)
+ - [OWASP JAVA html filter ](https://owasp.org/www-project-java-html-sanitizer/)
 
 Spring Boot does not provide a ready to use facility for filtering HTML tags out of input. The reasons are that it is highly dependent on the application, and it is very hard and almost always incomplete. Other XSS counter measures are prefered.
