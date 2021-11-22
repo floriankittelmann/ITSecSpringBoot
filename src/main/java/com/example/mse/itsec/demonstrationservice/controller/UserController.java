@@ -30,15 +30,6 @@ public class UserController {
         return "registersuccess";
     }
 
-    @PostMapping("/register_xss")
-    public String registerUserXss(@ModelAttribute User user, Model model) {
-        userService.save(user);
-
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("email", user.getEmail());
-        return "registersuccess_xss";
-    }
-
     @GetMapping("/register")
     public String getForm(Model model) {
         model.addAttribute("user", new User());
