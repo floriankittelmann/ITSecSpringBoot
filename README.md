@@ -8,3 +8,7 @@ The as backing database [H2 in memory](https://www.baeldung.com/spring-boot-h2-d
 Resources used in authentication protection:
 
 - [Spring Security Documentation]()
+- [Spring Security official Intro](https://spring.io/guides/topicals/spring-security-architecture)
+- [Spring Security deep-dive](https://www.marcobehler.com/guides/spring-security)
+- [Official Tutorial](https://spring.io/guides/gs/securing-web/) (a bit old)
+- [Different tutorial](https://roytuts.com/spring-boot-security-form-based-authentication/)
