@@ -8,8 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ProtectedController {
 
     @GetMapping("/protected")
-    public String getHome(Model model) {
+    public String getProtected(Model model) {
 
         return "protected";
+    }
+
+    @GetMapping("/admin/settings")
+    public String getSettings(Model model) {
+
+        return "settings";
     }
 }

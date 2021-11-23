@@ -7,3 +7,4 @@ The as backing database [H2 in memory](https://www.baeldung.com/spring-boot-h2-d
 
 Resources used in authentication protection:
 
+- [Spring Security Documentation]()

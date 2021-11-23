@@ -22,9 +22,6 @@ public class UserService {
     public boolean verifyCredentials(User user) {
         return userRepository.existsUserByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
-    public boolean verifyCredentialsNative(User user) {
-        return userRepository.findUserByUsernameAndPassword(user.getUsername(), user.getPassword()).isPresent();
-    }
 
     public User getUser(String name) {
         return  userRepository.getByUsername(name);
