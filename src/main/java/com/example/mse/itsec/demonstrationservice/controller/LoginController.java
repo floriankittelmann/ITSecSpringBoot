@@ -22,6 +22,7 @@ public class LoginController {
         }
         return "login";
     }
+
     @PostMapping("/logout")
     public String logoutPage(Model model, HttpServletRequest request) {
         request.getSession().invalidate();
