@@ -15,6 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN") // Role ADMIN may access all end points under admin
                 .antMatchers("/").hasAnyRole("USER","ADMIN") // Any of the roles USER or ADMIN may access
@@ -30,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout") // end point to call for logout
-                .deleteCookies("JSESSIONID") // delete the session cookie after logout
-                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID") // delete the session cookie after logout (happens automatically by default)
+                .invalidateHttpSession(true) // Throw out rest of session (happens automatically by default)
                 .logoutSuccessUrl("/login");
     }
 
@@ -49,6 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Bean
     public PasswordEncoder passwordEncoder() {
 
-        return new Argon2PasswordEncoder();
+        return new Argon2PasswordEncoder(); //
     }
+
+
+
 }

@@ -12,3 +12,6 @@ Resources used in authentication protection:
 - [Spring Security deep-dive](https://www.marcobehler.com/guides/spring-security)
 - [Official Tutorial](https://spring.io/guides/gs/securing-web/) (a bit old)
 - [Different tutorial](https://roytuts.com/spring-boot-security-form-based-authentication/)
+- [Spring Boot CSRF How To](https://www.baeldung.com/spring-security-csrf)
+- [Spring Official CSRF Documentation](https://docs.spring.io/spring-security/site/docs/5.0.x/reference/html/csrf.html)
+
